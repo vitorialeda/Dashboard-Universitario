@@ -2,20 +2,36 @@
 <html>
     <head>
         <title>Dashboard</title>
+        <style>
+            body {
+                background-color: #3a3b3c;
+                color:#E0E0E0;
+            }
+        </style>
     </head>
-    <body>
+    <body">
         <h1>Esta será a pagina do dashboard</h1>
 
         <main>
             <div class="principal">
                 <div class="disciplina">bloco de disciplina</div>
-                <div class="proximos-conteudos">Proximos conteudos</div>
-                <div class="entrega-proximas-semanas">Para entregar nas proximas semanas</div>
+                <ul>
+
+                    <li>
+                        <h4>Nome:</h4>
+                        <p>{{disciplina.nome}}</p>
+                        <h4>Objetivo:</h4>
+                        <p>{{disciplina.objetivo}}</p>
+                    </li>
+
+                </ul>
+                <!-- <div class="proximos-conteudos">Proximos conteudos</div>
+                <div class="entrega-proximas-semanas">Para entregar nas proximas semanas</div> -->
             </div>
-            <div class="horarios">Horarios</div>
+            <!-- <div class="horarios">Horarios</div>
             <div class="calendario">Calendario</div>
             <div class="progresso">Progress</div>
-            <div class="imagem-de-apoio">Imagem de apoio</div>
+            <div class="imagem-de-apoio">Imagem de apoio</div> -->
         </main>
 
         <footer> feito por Vitória Leda :D</footer>
