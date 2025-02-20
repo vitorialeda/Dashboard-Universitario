@@ -14,20 +14,26 @@
 
         <main>
             <div class="principal">
+                {% for index in range(tamanho) %}
                 <div class="disciplina">bloco de disciplina</div>
-                <ul>
+                    <ul>
+                        <li>
+                            <h3>{{disciplinas[index].nome}}</h3>
+                            <p>{{disciplinas[index].objetivo}}</p>
+                        </li>
+                    </ul>
+                    <div class="proximos-conteudos">Proximos conteudos</div>
+                    <ul>
+                        {% for conteudo in conteudos %}
+                            {% if (conteudo.disciplina_id_disciplina - 1) == index %}
+                                <p>[ ] - {{conteudo.titulo}}</p>
+                            {% endif %}
+                        {% endfor%}
 
-                    <li>
-                        <h4>Nome:</h4>
-                        <p>{{disciplina.nome}}</p>
-                        <h4>Objetivo:</h4>
-                        <p>{{disciplina.objetivo}}</p>
-                    </li>
-
-                </ul>
-                <!-- <div class="proximos-conteudos">Proximos conteudos</div>
-                <div class="entrega-proximas-semanas">Para entregar nas proximas semanas</div> -->
-            </div>
+                    </ul>
+                    <div class="entrega-proximas-semanas">Para entregar nas proximas semanas</div>
+                </div>
+                {% endfor %}
             <!-- <div class="horarios">Horarios</div>
             <div class="calendario">Calendario</div>
             <div class="progresso">Progress</div>
