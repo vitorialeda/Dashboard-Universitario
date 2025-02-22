@@ -11,7 +11,4 @@ app.run(debug=True)
 def dashboard():
     disciplinas = database.mostra_disciplinas()
     conteudos = database.mostra_conteudos()
-    # print (disciplinas)
-    # print("===================")
-    # print(conteudos)
     return render_template("dashboard.html", disciplinas = disciplinas, conteudos = conteudos, tamanho = len(disciplinas))
