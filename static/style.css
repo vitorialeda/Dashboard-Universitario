@@ -9,7 +9,6 @@
 .main-area{
     grid-area: main;
     display: grid;
-    background-color: darkkhaki;
     grid-template-areas: 
         "carousel next_content"
         "carousel next_week";
@@ -19,6 +18,6 @@ main{
     display: grid;
     grid-template-areas: 
         "main main calendar"
-        "main main progresso"
+        "main main progresso"   
         "horario horario imagens";
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/static/script.js"></script>
+  <title>teste</title>
+
+</head>
+<body>
+
+  <!-- Card Disciplina -->
+  <div style="display: flex; gap: 1rem;">
+    {% for disciplina in disciplinas %}
+    <div>
+      <h3 style="text-align: center;">{{disciplina.nome}}</h3>
+      
+      <div>
+        <ul>
+          {% for conteudo in disciplina.ementa %}
+          
+          <li><input id="{{conteudo.id}}" type="checkbox" onchange="atualizaTodo(this)"> {{conteudo.nome}}</li>
+          
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <hr>
+
+      <div>
+        <ul>
+          {% for atividade in disciplina.atividades %}
+          <li><input id="{{atividade.id}}" type="checkbox" onchange="atualizaTodo(this)"> {{atividade.nome}} {{atividade.prazo}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Card Proximos Conteudos -->
+  <div>
+    <ul>
+      {% for conteudo in prox_conteudos %}
+      <li><input id="{{conteudo.id}}" type="checkbox" onchange="atualizaTodo(this)">{{conteudo.nome}} {{conteudo.disciplina}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+     <!-- Card Proximas atividades -->
+  <div>
+    <ul>
+      {% for atividade in prox_atividades %}
+      <li><input id="{{atividade.id}}" type="checkbox" onchange="atualizaTodo(this)">{{atividade.nome}} {{atividade.prazo}} {{atividade.disciplina}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Horario -->
+  <table id="horario">
+    <thead>
+      <tr>
+        <th scope="col">Horários</th>
+        <th scope="col">Segunda</th>
+        <th scope="col">Terça</th>
+        <th scope="col">Quarta</th>
+        <th scope="col">Quinta</th>
+        <th scope="col">Sexta</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <th>13h00 - 13h50</th>
+        <th>Sociedade e Informárica - Majin</th>
+        <th>&#8213;</th>
+        <th>&#8213;</th>
+        <th>(Reposição de Aulas)</th>
+        <th>Gerência e Projeto de Software - Aline</th>
+      </tr>
+
+      <tr>
+        <th>13h50 - 14h40</th>
+        <th>Sociedade e Informárica - Majin</th>
+        <th>Desenv. de Sistemas Web 1 - Warley</th>
+        <th>Desenv. de Sistemas Web 1 - Warley</th>
+        <th>(Reposição de Aulas)</th>
+        <th>Gerência e Projeto de Software - Aline</th>
+      </tr>
+
+      <tr>
+        <th>14h40 - 15h30</th>
+        <th>Comput. Gráfica e VR</th>
+        <th>Desenv. de Sistemas Web 1 - Warley</th>
+        <th>Desenv. de Sistemas Web 1 - Warley</th>
+        <th>(Reposição de Aulas)</th>
+        <th>Gerência e Projeto de Software - Aline</th>
+      </tr>
+
+      <tr>
+        <th>15h50 - 16h40</th>
+        <th>Comput. Gráfica e VR</th>
+        <th>Redes de Computadores - Gleison</th>
+        <th>Redes de Computadores - Gleison</th>
+        <th>Comput. Gráfica e VR</th>
+        <th>Gerência e Projeto de Software - Aline</th>
+      </tr>
+
+      <tr>
+        <th>16h40 - 17h30</th>
+        <th>Gestão de Informação - Idelvandro</th>
+        <th>Redes de Computadores - Gleison</th>
+        <th>Redes de Computadores - Gleison</th>
+        <th>Comput. Gráfica e VR</th>
+        <th>Gestão de Informação - Idelvandro</th>
+      </tr>
+      <tr>
+        <th>17h30 - 18h20</th>
+        <th>Gestão de Informação - Idelvandro</th>
+        <th>Redes de Computadores - Gleison</th>
+        <th>Redes de Computadores - Gleison</th>
+        <th>Comput. Gráfica e VR</th>
+        <th>Gestão de Informação - Idelvandro</th>
+      </tr>
+    </tbody>
+  </table>  
+
+</body>
+</html>
+
+

@@ -1,65 +1,85 @@
 import sqlite3
+from datetime import datetime
 
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
     return {key: value for key, value in zip(fields, row)}
 
-# Puxa da base de dados o nome e o objetivo de todas as disciplinas
+
+# Puxa da base de dados o nome e o objetivo de uma disciplina
 def mostra_disciplinas():
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
     cursor = connect.cursor()
 
-    cursor.execute("SELECT nome, objetivo FROM disciplina")
+    cursor.execute("SELECT id_disciplina AS id, nome, objetivo FROM disciplina")
     disciplinas = cursor.fetchall()
 
     connect.close()
     return disciplinas
 
-# Puxa da base de dados o titulo dos conteudos de uma disciplina especifica
-def mostra_conteudos():
+
+# Puxa da base de dados o titulo, o status e a disciplina dos conteudos de uma disciplina
+def mostra_conteudos(id_disciplina):
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
     cursor = connect.cursor()
 
-    cursor.execute("SELECT disciplina_id_disciplina AS disciplina, titulo FROM conteudo ORDER BY disciplina_id_disciplina")
+    cursor.execute("SELECT id, nome, concluido FROM todo WHERE categoria = 'CON' AND id_disciplina = ?", (id_disciplina,))
     conteudos = cursor.fetchall()
 
     connect.close()
     return conteudos
 
-def mostra_atividades():
+
+# Puxa da base de dados o titulo, o status e a disciplina das atividades de uma disciplina
+def mostra_atividades(id_disciplina):
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
     cursor = connect.cursor()
 
-    cursor.execute("SELECT titulo, descricao, status, disciplina_id_disciplina as disciplina, prazo FROM atividade")
+    cursor.execute("SELECT id, nome, concluido, prazo, id_disciplina as disciplina FROM todo WHERE categoria = 'ATV' AND disciplina = ?", (id_disciplina,))
     atividades = cursor.fetchall()
 
     connect.close()
     return atividades
 
+
+# Puxa o proximo conteudo a fazer de cada disciplina
 def proximos_conteudos():
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
     cursor = connect.cursor()
 
-    cursor.execute("SELECT titulo, disciplina_id_disciplina AS disciplina FROM conteudo GROUP BY disciplina")
-    conteudos = cursor.fetchall()
+    cursor.execute("SELECT nome, concluido, id_disciplina AS disciplina FROM todo WHERE categoria = 'CON' AND concluido = 'False' GROUP BY id_disciplina")
+    prox_conteudos = cursor.fetchall()
 
     connect.close()
-    return conteudos
+    return prox_conteudos
 
+
+# Puxa as atividades com o prazo de entrega para os proximos 7 dias
 def proximas_atividades():
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
     cursor = connect.cursor()
 
-    cursor.execute("SELECT * FROM atividade ORDER BY prazo")
-    atividades = cursor.fetchall()
-
-    # TO DO
-    # Fazer com que a query puxe atividades da proxima semana
+    hoje = datetime.today().strftime('%Y-%m-%d')
+    cursor.execute("SELECT nome, prazo, id_disciplina AS disciplina FROM todo WHERE julianday(prazo) - julianday(?) <= 7", (hoje,))
+    prox_atividades = cursor.fetchall()
 
     connect.close()
-    return atividades
+    return prox_atividades
+
+
+def atualizaStatus(id, status):
+    # TO DO
+    connect = sqlite3.connect("dashboard.db")
+    cursor = connect.cursor()
+
+    cursor.execute("UPDATE todo SET concluido = ? WHERE id = ?", (status, id) )
+    
+    connect.commit()
+
+    connect.close()
+    return
