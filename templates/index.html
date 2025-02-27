@@ -10,10 +10,9 @@
 
 
   <body>
-    {# Restante da aplicação
-    <div id="calendar" style="width: 500px"></div>
-
     
+    {# Restante da aplicação
+
     <!-- Card Disciplina -->
     <div>
       {% for disciplina in disciplinas %}
@@ -57,6 +56,10 @@
       </div>
       {% endfor %}
     </div>
+
+
+    <!-- Calendario -->
+    <div id="calendar" style="width: 500px"></div>
 
 
     <!-- Card Proximos Conteudos -->
@@ -179,19 +182,20 @@
         </tr>
       </tbody>
     </table>
-
-
+    
+    
     <div>
-      <!-- TO DO Progresso  exemplo: atividades feitas x/y no mes z --> 
-    </div>
-
-
-    #}
-    <div>
-      <!-- TO DO Imagem de apoio -->
        <img width="308px" height="290px" style="object-fit: cover" src="https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg">
        <img width="308px" height="290px" style="object-fit: cover" src="https://images7.memedroid.com/images/UPLOADED661/6417b7fd50741.jpeg">
        <img width="308px" height="290px" style="object-fit: cover" src="https://i.pinimg.com/236x/11/64/07/11640755def7c2c40d8d5211c4f25913.jpg">
+    </div>
+    #}
+    
+    
+    <div>
+      <h1>{{(progresso.concluidas/progresso.total * 100)|round|int}}%</h1>
+      <h3>{{progresso.concluidas}}/{{progresso.total}}</h3>
+       <progress value="{{progresso.concluidas}}" max="{{progresso.total}}"/>
     </div>
 
 
