@@ -73,13 +73,22 @@ def proximas_atividades():
 
 
 def atualizaStatus(id, status):
-    # TO DO
     connect = sqlite3.connect("dashboard.db")
     cursor = connect.cursor()
 
     cursor.execute("UPDATE todo SET concluido = ? WHERE id = ?", (status, id) )
     
     connect.commit()
-
     connect.close()
     return
+
+def mostra_eventos():
+    connect = sqlite3.connect("dashboard.db")
+    connect.row_factory = dict_factory
+    cursor = connect.cursor()
+
+    cursor.execute("SELECT id, nome, prazo, id_disciplina AS disciplina, concluido FROM todo WHERE prazo NOT NULL")
+    eventos = cursor.fetchall()
+
+    connect.close()
+    return eventos

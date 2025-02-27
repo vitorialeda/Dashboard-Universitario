@@ -27,3 +27,8 @@ def atualizaStatus():
     database.atualizaStatus(id, status)
 
     return redirect("/")
+
+@app.route("/eventos")
+def eventos():
+    eventos = database.mostra_eventos()
+    return jsonify(eventos)
