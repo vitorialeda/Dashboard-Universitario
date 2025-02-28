@@ -3,8 +3,6 @@ function atualizaTodo(todo){
     const id = todo.id
     const status = todo.checked
 
-    todo.checked ? todo.setAttribute("checked", "checked") : todo.removeAttribute("checked")
-
     fetch('/atualizaStatus', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
@@ -12,6 +10,8 @@ function atualizaTodo(todo){
     });
 }
 
+
+// Inicia o calendario
  document.addEventListener('DOMContentLoaded', async function() {
   
   // Popula array evento com objeto evento de forma que os atributos
@@ -39,3 +39,9 @@ function atualizaTodo(todo){
 
     calendar.render()
   })
+
+  // Ativa o primeiro item da lista de disciplinas
+  document.addEventListener('DOMContentLoaded',()=> document.querySelector('.carousel-item').classList.add('active'))
+
+
+  

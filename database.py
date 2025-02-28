@@ -138,26 +138,23 @@ def progresso():
     cursor = connect.cursor()
 
 
-### MUDAR 03 POR ? , (mesAtual,)
-
     # Verifica a quantidade de tarefas a serem entregues no mes atual
     cursor.execute(
         '''
         SELECT COUNT(*) AS total FROM todo 
-        WHERE strftime('%m', prazo) = '03'
-        ''')
-    
-    # , (mesAtual,)
-    
+        WHERE strftime('%m', prazo) = ?
+        ''', (mesAtual,))
+
     totalAtividadesMes = cursor.fetchall()
+
 
     # Verifica quantas tarefas foram feitas 
     cursor.execute(
         '''
         SELECT COUNT(*) AS concluidas FROM todo
-        WHERE strftime('%m', prazo) = '03'
+        WHERE strftime('%m', prazo) = ?
         AND concluido = 'True'
-        ''')
+        ''', (mesAtual,))
     
     atvConcluidasMes = cursor.fetchall()
     

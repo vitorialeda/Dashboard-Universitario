@@ -1,23 +1,97 @@
-#carrossel_disciplina {grid-area: carousel;}
-#prox_conteudos {grid-area: next_content;}
-#prox_semana {grid-area: next_week;}
-#horario {grid-area: horario;}
-#calendario {grid-area: calendar;}
-#progresso {grid-area: progresso;}
-#imagens {grid-area: imagens;}
 
-.main-area{
-    grid-area: main;
-    display: grid;
-    grid-template-areas: 
-        "carousel next_content"
-        "carousel next_week";
+#horario {grid-area: horario;}
+#calendario {grid-area: calendario;}
+#progresso {grid-area: progresso;}
+#imagens {grid-area: imagens; width: 308px;}
+
+body{
+    color:#2c0404cc;
 }
 
-main{
-    display: grid;
-    grid-template-areas: 
-        "main main calendar"
-        "main main progresso"   
-        "horario horario imagens";
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+li{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    align-items: flex-start;
+    height: fit-content;
+}
+.carousel-control-prev-icon{
+    background-image: url("/static/icons/chevron_left_24dp_2C0404CC.svg");
+}
+.carousel-control-next-icon{
+    background-image: url("/static/icons/navigate_next_24dp_2C0404CC.svg");
+}
+
+.main-area{
+   display: grid;
+   width: 638px;
+   height: 601px;
+   padding: 24px;
+   gap: 15px;
+
+
+   #carrossel-disciplina {
+        width: 280px; 
+        padding: 22px 18px; 
+        overflow-y: scroll; 
+        background-color: rgb(254, 253, 245);
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        border-radius: 25px;
+
+        .titulo-disciplina{
+            text-align: center;
+            margin-bottom: 31px;
+            margin-inline: auto;
+            width: 161px;
+        }
+        
+        .carousel-item > div{
+            max-height: 200px;
+            overflow-y: scroll;
+            margin-bottom: 1rem;
+            background-color: #ffffff;
+            border: 1px solid #D5D4DF;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+
+        }
+        .carousel-item > h6{
+            margin-bottom: 10px;
+        }
+
+    }
+
+    #proximos-conteudos{
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    #proximos-conteudos, #proximas-atividades{
+        height: 260px;
+        overflow-y: scroll;
+        padding: 18px;
+        border-radius: 25px;
+        border: 1px solid #EEE6DA;
+        background-color: rgb(254, 253, 245);
+
+        li{
+            margin-bottom: 0.5rem;
+            background-color: #ffffff;
+            border: 1px solid #D5D4DF;
+            border-radius: 25px;
+            padding: 0.5rem 0.75rem;
+        }
+    }
+
 }
