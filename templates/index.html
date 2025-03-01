@@ -16,7 +16,6 @@
   <body>
     <div class="wrapper">
       
-      
       <!-- Disciplina, proximos conteudos e proximas atividades -->
       <div class="main-area">
         <!-- Carrossel Disciplina -->
@@ -26,13 +25,13 @@
           <div class="carousel-inner">
             <!-- Botoes carrossel -->
             <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carrossel-disciplina"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carrossel-disciplina"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
             </button>
 
             <button
@@ -48,47 +47,61 @@
             {% for disciplina in disciplinas %}
             <div class="carousel-item">
 
-              <h6 class="titulo-disciplina">{{disciplina.nome}}</h6>
+              <h6 class="titulo-disciplina disciplina{{disciplina.id}}">{{disciplina.nome}}</h6>
 
-              <div>
-                <h6>Objetivo</h6>
-                <p>{{disciplina.objetivo}}</p>
-              </div>
+              <div class="conteudos">
+                <div>
+                  <h6>Objetivo</h6>
+                  <p>{{disciplina.objetivo}}</p>
+                </div>
 
-              <div>
-                <h6>Ementa</h6>
+                <div>
+                  <h6>Ementa</h6>
 
-                <ul>
-                  {% for conteudo in disciplina.ementa %}
-                  <li>
-                    <input
-                      id="{{conteudo.id}}"
-                      type="checkbox"
-                      onchange="atualizaTodo(this)"
-                    />
-                    {{conteudo.nome}}
-                  </li>
-                  {% endfor %}
-                </ul>
+                  <ul>
+                    {% for conteudo in disciplina.ementa %}
+                    {% if conteudo.concluido == "False"%}
+                    <li>
+                      <input
+                        id="{{conteudo.id}}"
+                        type="checkbox"
+                        onchange="atualizaTodo(this)"
+                      />
+                      <p>{{conteudo.nome}}</p>
+                    </li>
+                    {% else %}
+                    <li>
+                      <input
+                        id="{{conteudo.id}}"
+                        type="checkbox"
+                        onchange="atualizaTodo(this)"
+                        checked
+                      />
+                      <p>{{conteudo.nome}}</p>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
 
-              </div>
+                </div>
 
-              <div>
-                <h6>Atividades</h6>
-                <ul>
+                <div>
+                  <h6>Atividades</h6>
+                  <ul>
 
-                  {% for atividade in disciplina.atividades %}
-                  <li>
-                    <input
-                      id="{{atividade.id}}"
-                      type="checkbox"
-                      onchange="atualizaTodo(this)"
-                    />
-                    {{atividade.nome}} {{atividade.prazo}}
-                  </li>
-                  {% endfor %}
+                    {% for atividade in disciplina.atividades %}
+                    <li>
+                      <input
+                        id="{{atividade.id}}"
+                        type="checkbox"
+                        onchange="atualizaTodo(this)"
+                      />
+                      {{atividade.nome}} {{atividade.prazo}}
+                    </li>
+                    {% endfor %}
 
-                </ul>
+                  </ul>
+                </div>
               </div>
 
             </div>
@@ -107,7 +120,9 @@
                 id="{{conteudo.id}}"
                 type="checkbox"
                 onchange="atualizaTodo(this)"
-              /> {{conteudo.nome}} {{conteudo.disciplina}}
+              />
+              <div class="linha-vertical disciplina{{conteudo.disciplina}}"></div>
+              <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
             </li>
             {% else %}
             <li>
@@ -116,7 +131,9 @@
                 type="checkbox"
                 onchange="atualizaTodo(this)"
                 checked
-              /> {{conteudo.nome}} {{conteudo.disciplina}}
+              />
+              <div class="linha-vertical disciplina{{conteudo.disciplina}}"></div>
+              <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
             </li>
             {% endif %} {% endfor %}
           </ul>
@@ -124,7 +141,7 @@
 
         <!-- Card Proximas atividades -->
         <div id="proximas-atividades">
-          <h6>Para entregar nas proximas semanas:</h6>
+          <h6>Para essa semana:</h6>
           <ul>
             {% for atividade in prox_atividades %} {% if atividade.concluido == "False" %}
             
@@ -133,11 +150,13 @@
                 id="{{atividade.id}}"
                 type="checkbox"
                 onchange="atualizaTodo(this)"
-              />
-              <div>
+              /></input>
+              <div class="linha-vertical disciplina{{atividade.disciplina}}"></div>
+              <div class="lh-sm">
                 <p>{{atividade.nome}}</p>
-                <p>Prazo: {{atividade.prazo}}</p>
+                <p class="text-muted">Prazo: {{atividade.prazo}}</p>
               </div>
+
             </li>
 
             {% else %}
@@ -148,10 +167,12 @@
                 type="checkbox"
                 onchange="atualizaTodo(this)"
                 checked
-              />
-              <div>
-                {{atividade.nome}} 
-                Prazo: {{atividade.prazo}}
+              >
+              </input>
+              <div class="linha-vertical disciplina{{atividade.disciplina}}"></div>
+              <div class="lh-sm">
+                <p>{{atividade.nome}}</p>
+                <p class="text-muted small">Prazo: {{atividade.prazo}}</p>
               </div>
             </li>
             
@@ -162,114 +183,116 @@
 
       {# restante do codigo
       
-      <!-- Horario -->
-      <table id="horario" class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Horários</th>
-            <th scope="col">Segunda</th>
-            <th scope="col">Terça</th>
-            <th scope="col">Quarta</th>
-            <th scope="col">Quinta</th>
-            <th scope="col">Sexta</th>
-          </tr>
-        </thead>
+      <!-- Horario e Imagem -->
+      <div class="d-flex">
+        <!-- Horario -->
+        <div class="horario">
+          <table id="horario" class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Horários</th>
+                <th scope="col">Segunda</th>
+                <th scope="col">Terça</th>
+                <th scope="col">Quarta</th>
+                <th scope="col">Quinta</th>
+                <th scope="col">Sexta</th>
+              </tr>
+            </thead>
 
-        <tbody>
-          <tr>
-            <th>13h00 - 13h50</th>
-            <th>Sociedade e Informárica - Majin</th>
-            <th>&#8213;</th>
-            <th>&#8213;</th>
-            <th>(Reposição de Aulas)</th>
-            <th>Gerência e Projeto de Software - Aline</th>
-          </tr>
+            <tbody>
+              <tr>
+                <td>13h00 - 13h50</td>
+                <td class="disciplina2">Sociedade e Informárica</td>
+                <td>&#8213;</td>
+                <td>&#8213;</td>
+                <td>(Reposição de Aulas)</td>
+                <td class="disciplina1">Gerência e Projeto de Software</td>
+              </tr>
 
-          <tr>
-            <th>13h50 - 14h40</th>
-            <th>Sociedade e Informárica - Majin</th>
-            <th>Desenv. de Sistemas Web 1 - Warley</th>
-            <th>Desenv. de Sistemas Web 1 - Warley</th>
-            <th>(Reposição de Aulas)</th>
-            <th>Gerência e Projeto de Software - Aline</th>
-          </tr>
+              <tr>
+                <td>13h50 - 14h40</td>
+                <td class="disciplina2">Sociedade e Informárica</td>
+                <td class="disciplina4">Desenv. de Sistemas Web 1</td>
+                <td class="disciplina4">Desenv. de Sistemas Web 1</td>
+                <td>(Reposição de Aulas)</td>
+                <td class="disciplina1">Gerência e Projeto de Software</td>
+              </tr>
 
-          <tr>
-            <th>14h40 - 15h30</th>
-            <th>Comput. Gráfica e VR</th>
-            <th>Desenv. de Sistemas Web 1 - Warley</th>
-            <th>Desenv. de Sistemas Web 1 - Warley</th>
-            <th>(Reposição de Aulas)</th>
-            <th>Gerência e Projeto de Software - Aline</th>
-          </tr>
+              <tr>
+                <td>14h40 - 15h30</td>
+                <td class="disciplina6">Comput. Gráfica e VR</td>
+                <td class="disciplina4">Desenv. de Sistemas Web 1</td>
+                <td class="disciplina4">Desenv. de Sistemas Web 1</td>
+                <td>(Reposição de Aulas)</td>
+                <td class="disciplina1">Gerência e Projeto de Software</td>
+              </tr>
 
-          <tr>
-            <th>15h50 - 16h40</th>
-            <th>Comput. Gráfica e VR</th>
-            <th>Redes de Computadores - Gleison</th>
-            <th>Redes de Computadores - Gleison</th>
-            <th>Comput. Gráfica e VR</th>
-            <th>Gerência e Projeto de Software - Aline</th>
-          </tr>
+              <tr>
+                <td>15h50 - 16h40</td>
+                <td class="disciplina6">Comput. Gráfica e VR</td>
+                <td class="disciplina5">Redes de Computadores</td>
+                <td class="disciplina5">Redes de Computadores</td>
+                <td class="disciplina6">Comput. Gráfica e VR</td>
+                <td class="disciplina1">Gerência e Projeto de Software</td>
+              </tr>
 
-          <tr>
-            <th>16h40 - 17h30</th>
-            <th>Gestão de Informação - Idelvandro</th>
-            <th>Redes de Computadores - Gleison</th>
-            <th>Redes de Computadores - Gleison</th>
-            <th>Comput. Gráfica e VR</th>
-            <th>Gestão de Informação - Idelvandro</th>
-          </tr>
-          <tr>
-            <th>17h30 - 18h20</th>
-            <th>Gestão de Informação - Idelvandro</th>
-            <th>Redes de Computadores - Gleison</th>
-            <th>Redes de Computadores - Gleison</th>
-            <th>Comput. Gráfica e VR</th>
-            <th>Gestão de Informação - Idelvandro</th>
-          </tr>
-        </tbody>
-      </table>
+              <tr>
+                <td>16h40 - 17h30</td>
+                <td class="disciplina3">Gestão de Informação</td>
+                <td class="disciplina5">Redes de Computadores</td>
+                <td class="disciplina5">Redes de Computadores</td>
+                <td class="disciplina6">Comput. Gráfica e VR</td>
+                <td class="disciplina3">Gestão de Informação</td>
+              </tr>
+              <tr>
+                <td>17h30 - 18h20</td>
+                <td class="disciplina3">Gestão de Informação</td>
+                <td class="disciplina5">Redes de Computadores</td>
+                <td class="disciplina5">Redes de Computadores</td>
+                <td class="disciplina6">Comput. Gráfica e VR</td>
+                <td class="disciplina3">Gestão de Informação</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Imagens -->
+        <div id="imagens" class="carousel slide carousel-fade" data-bs-ride="carousel">
+          <div class="carousel-inner">
+              <img
+              width="308px"
+              height="290px"
+              src="https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg"
+              class="carousel-item active"
+            />
+            <img
+              width="308px"
+              height="290px"
+              src="https://images7.memedroid.com/images/UPLOADED661/6417b7fd50741.jpeg"
+              class="carousel-item"
+            />
+            <img
+              width="308px"
+              height="290px"
+              src="https://i.pinimg.com/236x/11/64/07/11640755def7c2c40d8d5211c4f25913.jpg"
+              class="carousel-item"
+            />
+          </div> 
+        </div>
+      </div>
+
 
       <!-- Calendario -->
       <div id="calendar" style="width: 276px"></div>
-
+      #}
       <!-- Progresso -->
       <div id="progresso">
         <h6>Progresso do mês</h6>
-        <h1>{{(progresso.concluidas/progresso.total * 100)|round|int}}%</h1>
-        <h3>{{progresso.concluidas}}/{{progresso.total}}</h3>
-        <progress value="{{progresso.concluidas}}" max="{{progresso.total}}" />
+
+        <button onclick="">clica</button>
       </div>
       
-
-      <!-- Imagens -->
-      <div id="imagens" class="carousel slide" data-bs-ride="carousel" style="">
-        <div class="carousel-inner">
-            <img
-            width="308px"
-            height="290px"
-            style="object-fit: cover"
-            src="https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg"
-            class="carousel-item active"
-          />
-          <img
-            width="308px"
-            height="290px"
-            style="object-fit: cover"
-            src="https://images7.memedroid.com/images/UPLOADED661/6417b7fd50741.jpeg"
-            class="carousel-item"
-          />
-          <img
-            width="308px"
-            height="290px"
-            style="object-fit: cover"
-            src="https://i.pinimg.com/236x/11/64/07/11640755def7c2c40d8d5211c4f25913.jpg"
-            class="carousel-item"
-          />
-        </div> 
-      </div>
-      #}
+      
     </div>
     
     <script src="/static/script.js"></script>

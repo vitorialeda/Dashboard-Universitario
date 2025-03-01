@@ -9,7 +9,6 @@ def dashboard():
     prox_conteudos = database.proximos_conteudos()
     prox_atividades = database.proximas_atividades()
     disciplinas = database.mostra_disciplinas()
-    progresso = database.progresso()
 
     for i in range(len(disciplinas)):
         disciplinas[i]["ementa"] = database.mostra_conteudos(disciplinas[i]["id"])
@@ -33,3 +32,8 @@ def atualizaStatus():
 def eventos():
     eventos = database.mostra_eventos()
     return jsonify(eventos)
+
+@app.route("/progresso")
+def progresso():
+    progresso = database.progresso()
+    return progresso

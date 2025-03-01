@@ -89,7 +89,7 @@ def proximas_atividades():
     # Puxa as atividades com o prazo de entrega para os proximos 7 dias
     cursor.execute(
         '''
-        SELECT nome, prazo, id_disciplina AS disciplina FROM todo 
+        SELECT nome, prazo, concluido, id_disciplina AS disciplina FROM todo 
         WHERE julianday(prazo) - julianday(?) <= 7
         ''', (hoje,))
     
@@ -134,7 +134,6 @@ def progresso():
     mesAtual = datetime.today().strftime("%m")
 
     connect = sqlite3.connect("dashboard.db")
-    connect.row_factory = dict_factory
     cursor = connect.cursor()
 
 
@@ -147,7 +146,6 @@ def progresso():
 
     totalAtividadesMes = cursor.fetchall()
 
-
     # Verifica quantas tarefas foram feitas 
     cursor.execute(
         '''
@@ -157,5 +155,10 @@ def progresso():
         ''', (mesAtual,))
     
     atvConcluidasMes = cursor.fetchall()
+
+    progresso = {
+        "total": totalAtividadesMes[0][0],
+        "concluidas": atvConcluidasMes[0][0]
+        }
     
-    return {"total": totalAtividadesMes[0]["total"], "concluidas": atvConcluidasMes[0]["concluidas"]}
+    return progresso
