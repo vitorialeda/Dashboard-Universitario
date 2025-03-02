@@ -15,7 +15,7 @@ def dashboard():
         disciplinas[i]["atividades"] = database.mostra_atividades(disciplinas[i]["id"])
  
 
-    return render_template("index.html", disciplinas= disciplinas, prox_conteudos=prox_conteudos, prox_atividades=prox_atividades, progresso = progresso)
+    return render_template("index.html", disciplinas= disciplinas, prox_conteudos=prox_conteudos, prox_atividades=prox_atividades)
 
 
 @app.route("/atualizaStatus", methods=['POST'])
@@ -28,10 +28,12 @@ def atualizaStatus():
 
     return redirect("/")
 
+
 @app.route("/eventos")
 def eventos():
     eventos = database.mostra_eventos()
     return jsonify(eventos)
+
 
 @app.route("/progresso")
 def progresso():

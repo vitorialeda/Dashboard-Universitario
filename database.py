@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 
+
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
     return {key: value for key, value in zip(fields, row)}
@@ -67,7 +68,7 @@ def proximos_conteudos():
     # Puxa o proximo conteudo a fazer de cada disciplina
     cursor.execute(
         '''
-        SELECT nome, concluido, id_disciplina AS disciplina FROM todo 
+        SELECT id, nome, concluido, id_disciplina AS disciplina FROM todo 
         WHERE categoria = 'CON' AND concluido = 'False' 
         GROUP BY id_disciplina
         ''')
@@ -89,7 +90,7 @@ def proximas_atividades():
     # Puxa as atividades com o prazo de entrega para os proximos 7 dias
     cursor.execute(
         '''
-        SELECT nome, prazo, concluido, id_disciplina AS disciplina FROM todo 
+        SELECT id, nome, prazo, concluido, id_disciplina AS disciplina FROM todo 
         WHERE julianday(prazo) - julianday(?) <= 7
         ''', (hoje,))
     
@@ -113,6 +114,7 @@ def atualizaStatus(id, status):
     return
 
 
+# Para calendario
 def mostra_eventos():
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
@@ -128,6 +130,7 @@ def mostra_eventos():
 
     connect.close()
     return eventos
+
 
 def progresso():
     # Guarda numero do mes atual na variavel

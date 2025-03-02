@@ -1,18 +1,26 @@
-
-body{
+.wrapper{
+    width: 1002px;
+    margin: 24px auto;
+    padding: 20px;
+    border-radius: 25px;
     color:#2c0404cc;
     background: linear-gradient(#FFD900 34%,#FF951D);
-    height: 100vh;
+    
 }
+
+body{
+    background-color: rgb(221, 232, 242);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+p{margin: 0;}
 
 ul{
     list-style-type: none;
     padding: 0;
 }
 
-p{
-    margin: 0;
-}
+
 
 
 .main-area{
@@ -129,6 +137,7 @@ p{
     border: 1px solid #EEE6DA;
     border-radius: 25px;
     background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 4px 1px rgba(44, 4, 4, 0.1);
 
     table{border-color: rgba(44, 4, 4, 0.2);}
 
@@ -160,29 +169,73 @@ p{
         border: 1px solid #EEE6DA;
         object-fit: cover;
         border-radius: 25px;
+        box-shadow: 0 2px 4px 1px rgba(44, 4, 4, 0.1);
     }
 }
 
 
-.progress-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    width: 100px;
-    height: 100px;
+.calendario{
+    width: 308px;
+    height: 290px;
+    border: 1px solid #EEE6DA;
+    border-radius: 25px;
+    background-color: rgba(248, 255, 207, 0.5);
+}
+
+
+#progresso{
+    display: grid;
+    width: 308px;
+    height: 290px;
+    gap: 1rem;
+    padding: 18px;
+    border: 1px solid #EEE6DA;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+
+    h6{
+        height: fit-content;
+        margin: 0;
+    }
+}
+
+@property --progress{
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0%;
+}
+
+.progress-bar{
+
+    --size: 132px;
+    --bar-width: 25px;
+
+    font-size: 2rem;
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+
+    background: conic-gradient(#95d86b var(--progress,0), #2838151a 0%);
     border-radius: 50%;
-    background: 
-      radial-gradient(closest-side, white 79%, transparent 80% 100%),
-      conic-gradient(hotpink 75%, pink 0);    
-  }
-  
-  .progress-bar::before {
-    content: "75%";
-  }
-  
-  
-  
+    
+    display: flex;
+    align-items: center;
+    justify-self: center;
+
+    transition: --progress 500ms;
+
+    &::after{
+        content: attr(aria-valuenow)"%";
+        background: #fefaef;
+        border-radius: inherit;
+        width: calc(100% - var(--bar-width));
+        aspect-ratio: 1 / 1;
+        
+        display: grid;
+        place-items: center;
+    }
+}
+
+
 .carousel-control-prev,
 .carousel-control-next{
     margin-top: 6px;

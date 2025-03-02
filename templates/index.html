@@ -14,177 +14,135 @@
   </head>
 
   <body>
-    <div class="wrapper">
-      
-      <!-- Disciplina, proximos conteudos e proximas atividades -->
-      <div class="main-area">
-        <!-- Carrossel Disciplina -->
-        <div id="carrossel-disciplina" class="carousel">
-          
-          <!-- Conteudo -->
-          <div class="carousel-inner">
-            <!-- Botoes carrossel -->
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carrossel-disciplina"
-              data-bs-slide="prev"
-            >
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
+    <div class="wrapper d-flex gap-3">
 
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carrossel-disciplina"
-              data-bs-slide="next"
-            >
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+      <!-- Coluna 1 -->
+      <div class="d-grid gap-3">
 
-            {% for disciplina in disciplinas %}
-            <div class="carousel-item">
+        <!-- Disciplina, proximos conteudos e proximas atividades -->
+        <div class="main-area">
 
-              <h6 class="titulo-disciplina disciplina{{disciplina.id}}">{{disciplina.nome}}</h6>
+          <!-- Carrossel Disciplina -->
+          <div id="carrossel-disciplina" class="carousel">
+            
+            <!-- Conteudo -->
+            <div class="carousel-inner">
+              <!-- Botoes carrossel -->
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carrossel-disciplina"
+                data-bs-slide="prev"
+              >
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
 
-              <div class="conteudos">
-                <div>
-                  <h6>Objetivo</h6>
-                  <p>{{disciplina.objetivo}}</p>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carrossel-disciplina"
+                data-bs-slide="next"
+              >
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+
+              {% for disciplina in disciplinas %}
+              <div class="carousel-item">
+
+                <h6 class="titulo-disciplina disciplina{{disciplina.id}}">{{disciplina.nome}}</h6>
+
+                <div class="conteudos">
+                  <div>
+                    <h6>Objetivo</h6>
+                    <p>{{disciplina.objetivo}}</p>
+                  </div>
+
+                  <div>
+                    <h6>Ementa</h6>
+                    <ul>
+                      {% for conteudo in disciplina.ementa %}
+                      <li>
+                        <input
+                          id="{{conteudo.id}}"
+                          type="checkbox"
+                          value="{{conteudo.concluido}}"
+                          onchange="atualizaTodo(this)"
+                        />
+                        <p>{{conteudo.nome}}</p>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h6>Atividades</h6>
+                    <ul>
+
+                      {% for atividade in disciplina.atividades %}
+                      <li>
+                        <input
+                          id="{{atividade.id}}"
+                          type="checkbox"
+                          value="atividade.concluido"
+                          onchange="atualizaTodo(this)"
+                        />
+                        {{atividade.nome}} {{atividade.prazo}}
+                      </li>
+                      {% endfor %}
+
+                    </ul>
+                  </div>
                 </div>
 
-                <div>
-                  <h6>Ementa</h6>
-
-                  <ul>
-                    {% for conteudo in disciplina.ementa %}
-                    {% if conteudo.concluido == "False"%}
-                    <li>
-                      <input
-                        id="{{conteudo.id}}"
-                        type="checkbox"
-                        onchange="atualizaTodo(this)"
-                      />
-                      <p>{{conteudo.nome}}</p>
-                    </li>
-                    {% else %}
-                    <li>
-                      <input
-                        id="{{conteudo.id}}"
-                        type="checkbox"
-                        onchange="atualizaTodo(this)"
-                        checked
-                      />
-                      <p>{{conteudo.nome}}</p>
-                    </li>
-                    {% endif %}
-                    {% endfor %}
-                  </ul>
-
-                </div>
-
-                <div>
-                  <h6>Atividades</h6>
-                  <ul>
-
-                    {% for atividade in disciplina.atividades %}
-                    <li>
-                      <input
-                        id="{{atividade.id}}"
-                        type="checkbox"
-                        onchange="atualizaTodo(this)"
-                      />
-                      {{atividade.nome}} {{atividade.prazo}}
-                    </li>
-                    {% endfor %}
-
-                  </ul>
-                </div>
               </div>
-
+              {% endfor %}
             </div>
-            {% endfor %}
+          </div>
+
+          <!-- Card Proximos Conteudos -->
+          <div id="proximos-conteudos">
+            <h6>Proximos conteúdos:</h6>
+            <ul>
+              {% for conteudo in prox_conteudos %}
+              <li>
+                <input
+                  id="{{conteudo.id}}"
+                  type="checkbox"
+                  value="{{conteudo.concluido}}"
+                  onchange="atualizaTodo(this)"
+                />
+                <div class="linha-vertical disciplina{{conteudo.disciplina}}"></div>
+                <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
+              </li>
+             {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Card Proximas atividades -->
+          <div id="proximas-atividades">
+            <h6>Para essa semana:</h6>
+            <ul>
+              {% for atividade in prox_atividades %}
+              <li>
+                <input
+                  id="{{atividade.id}}"
+                  type="checkbox"
+                  value="{{atividade.concluido}}"
+                  onchange="atualizaTodo(this)"
+                />
+                <div class="linha-vertical disciplina{{atividade.disciplina}}"></div>
+                <div class="lh-sm">
+                  <p>{{atividade.nome}}</p>
+                  <p class="text-muted small">Prazo: {{atividade.prazo}}</p>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
-
-        <!-- Card Proximos Conteudos -->
-        <div id="proximos-conteudos">
-          <h6>Proximos conteúdos:</h6>
-          <ul>
-            {% for conteudo in prox_conteudos %} {% if conteudo.concluido ==
-            "False" %}
-            <li>
-              <input
-                id="{{conteudo.id}}"
-                type="checkbox"
-                onchange="atualizaTodo(this)"
-              />
-              <div class="linha-vertical disciplina{{conteudo.disciplina}}"></div>
-              <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
-            </li>
-            {% else %}
-            <li>
-              <input
-                id="{{conteudo.id}}"
-                type="checkbox"
-                onchange="atualizaTodo(this)"
-                checked
-              />
-              <div class="linha-vertical disciplina{{conteudo.disciplina}}"></div>
-              <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
-            </li>
-            {% endif %} {% endfor %}
-          </ul>
-        </div>
-
-        <!-- Card Proximas atividades -->
-        <div id="proximas-atividades">
-          <h6>Para essa semana:</h6>
-          <ul>
-            {% for atividade in prox_atividades %} {% if atividade.concluido == "False" %}
-            
-            <li>
-              <input
-                id="{{atividade.id}}"
-                type="checkbox"
-                onchange="atualizaTodo(this)"
-              /></input>
-              <div class="linha-vertical disciplina{{atividade.disciplina}}"></div>
-              <div class="lh-sm">
-                <p>{{atividade.nome}}</p>
-                <p class="text-muted">Prazo: {{atividade.prazo}}</p>
-              </div>
-
-            </li>
-
-            {% else %}
-            
-            <li>
-              <input
-                id="{{atividade.id}}"
-                type="checkbox"
-                onchange="atualizaTodo(this)"
-                checked
-              >
-              </input>
-              <div class="linha-vertical disciplina{{atividade.disciplina}}"></div>
-              <div class="lh-sm">
-                <p>{{atividade.nome}}</p>
-                <p class="text-muted small">Prazo: {{atividade.prazo}}</p>
-              </div>
-            </li>
-            
-            {% endif %} {% endfor %}
-          </ul>
-        </div>
-      </div>
-
-      {# restante do codigo
-      
-      <!-- Horario e Imagem -->
-      <div class="d-flex">
+        
         <!-- Horario -->
         <div class="horario">
           <table id="horario" class="table table-bordered">
@@ -255,7 +213,21 @@
             </tbody>
           </table>
         </div>
+      </div>
 
+      <!-- Coluna 2 -->
+      <div class="d-grid gap-3">
+          <!-- Calendario -->
+        <div class="calendario">TO DO</div>
+      
+        <!-- Progresso -->
+        <div id="progresso">
+          <h6>Progresso do mês</h6>
+
+          <div class="progress-bar" role="progressbar" aria-live="polite"></div>
+          <div class="info"></div>
+        </div>
+        
         <!-- Imagens -->
         <div id="imagens" class="carousel slide carousel-fade" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -280,19 +252,8 @@
           </div> 
         </div>
       </div>
-
-
-      <!-- Calendario -->
-      <div id="calendar" style="width: 276px"></div>
-      #}
-      <!-- Progresso -->
-      <div id="progresso">
-        <h6>Progresso do mês</h6>
-
-        <button onclick="">clica</button>
-      </div>
       
-      
+
     </div>
     
     <script src="/static/script.js"></script>

@@ -1,8 +1,8 @@
-
 // Atualiza o atributo 'concluido' para true ou false e manda pro banco de dados
 function atualizaTodo(todo){
     const id = todo.id
     const status = todo.checked
+    console.log(todo)
 
     fetch('/atualizaStatus', {
         method: 'POST',
@@ -11,9 +11,10 @@ function atualizaTodo(todo){
     });
 
     progressBar()
+
 }
 
-
+// Setta progressBar
 async function progressBar(){
 
   progresso = await fetch("/progresso")
@@ -21,42 +22,36 @@ async function progressBar(){
 
   total = progresso.total
   concluidas = progresso.concluidas
-  porcentagem = concluidas / total * 100
+  porcentagem = concluidas / total * 100.0
+
+  const progressBar = document.querySelector('.progress-bar')
+
+  progressBar.setAttribute("aria-valuenow", porcentagem)
+  progressBar.style.setProperty("--progress", porcentagem + "%")
+
+
+  document.querySelector(".info").innerHTML = "<p>Total de tarefas: "+ total + "</p><p> Tarefas concluidas: " + concluidas + "</p>"
 
 }
 
 
-// Inicia o calendario
-document.addEventListener('DOMContentLoaded', async function() {
-  
-  // Popula array evento com objeto evento de forma que os atributos
-  // correspondam ao objeto events do calendar.
-  eventos = []
-  await fetch("/eventos")
-  .then(response => response.json())
-  .then(data => data.forEach(element => {
-    evento = {
-      id: element.id,
-      title: element.nome,
-      start: element.prazo
-    }
-    eventos.push(evento)
-  }))
+// Inicia progressBar
+document.addEventListener('DOMContentLoaded', progressBar())
 
-
-  // Renderiza calendario.
-  const calendarEl = document.getElementById('calendar')
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale:'pt-br',
-    events: eventos
-  })
-
-  calendar.render()
-})
 
 // Ativa o primeiro item da lista de disciplinas
 document.addEventListener('DOMContentLoaded',()=> document.querySelector('.carousel-item').classList.add('active'))
 
 
-  
+// Atualiza checkbox ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll("input").forEach((element)=>{
+
+    if(element.value == 'True'){
+      element.setAttribute("checked","checked")
+    }
+    else{
+      element.removeAttribute("checked")
+    }
+  })
+})
