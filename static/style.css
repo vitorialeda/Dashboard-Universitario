@@ -1,26 +1,45 @@
+/* Calendar */
+:root {
+    --fc-border-color: #D5D4DF;
+
+    --fc-button-text-color: #2c0404cc;
+    --fc-button-bg-color: transparent;
+    --fc-button-border-color: transparent;
+    --fc-button-hover-bg-color: transparent;
+    --fc-button-hover-border-color: transparent;
+    --fc-button-active-bg-color: transparent;
+    --fc-button-active-border-color: transparent;
+
+    --fc-event-text-color: #2c0404cc;
+    --fc-today-bg-color: #FFD900;
+}
+
+
 .wrapper{
-    width: 1002px;
-    margin: 24px auto;
+    width: 1005px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 25px;
     color:#2c0404cc;
     background: linear-gradient(#FFD900 34%,#FF951D);
+    box-shadow: 0px 8px 12px 4px rgba(44, 4, 4, 0.15);
     
 }
 
 body{
-    background-color: rgb(221, 232, 242);
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: rgb(240,240,246);
+    background: linear-gradient(8deg, rgba(240,240,246,1) 0%, rgba(255,255,255,1) 15%);
 }
 
+
 p{margin: 0;}
+
 
 ul{
     list-style-type: none;
     padding: 0;
 }
-
-
 
 
 .main-area{
@@ -32,6 +51,7 @@ ul{
    border: 1px solid #EEE6DA;
    border-radius: 25px;
    background-color: rgba(248, 255, 207, 0.5);
+   position: relative;
 
 
    #carrossel-disciplina {
@@ -60,7 +80,7 @@ ul{
             overflow-y: scroll;
             
             div{
-                height: 130px;
+                height: 125px;
                 overflow: scroll;
                 margin-bottom: 1rem;
                 margin-right: 0.75rem;
@@ -121,6 +141,18 @@ ul{
 }
 
 
+.estrela{
+    position: absolute;
+    top: -30px;
+    left: -45px;
+}
+
+
+.estrela:hover{
+    animation: tilt-shaking 0.25s infinite;
+}
+
+
 .linha-vertical{
     width: 0.25rem;
     height: 16px;
@@ -148,6 +180,7 @@ ul{
         font-size: 12px;
         text-align: center;
         color: #2C0404;
+        background-color: rgba(255, 255, 255, 0.75);
     }
 
     td{
@@ -158,6 +191,7 @@ ul{
         padding: 0;
         color: #2C0404;
         vertical-align: middle;
+        background-color: rgba(255, 255, 255, 0.75);
     }
 }
 
@@ -166,7 +200,6 @@ ul{
     img{
         width: 308px;
         height: 290px;
-        border: 1px solid #EEE6DA;
         object-fit: cover;
         border-radius: 25px;
         box-shadow: 0 2px 4px 1px rgba(44, 4, 4, 0.1);
@@ -179,7 +212,44 @@ ul{
     height: 290px;
     border: 1px solid #EEE6DA;
     border-radius: 25px;
-    background-color: rgba(248, 255, 207, 0.5);
+    background-color: white;
+    padding: 0.5rem 1rem;
+
+    #calendar{height: 100%;}
+    a{
+        color: #2c0404cc;
+        text-decoration: none;
+    }
+
+    .fc-button{
+        border: none;
+    }
+
+    .fc-button:hover{
+        background: transparent;
+        color: #2c0404cc;
+    }
+
+    .fc-toolbar.fc-header-toolbar{
+        margin-bottom: 0rem;
+    }
+
+    .fc-toolbar-title{
+        font-size: 1rem;
+    }
+
+    .fc-col-header-cell,
+    .fc-col-header-cell-cushion,
+    .fc-daygrid-day-number,
+    .fc-daygrid-day-events{
+        font-size: 0.75rem;
+        text-decoration: none;
+        padding: 0;
+        margin: auto;
+    }
+
+    /* td{height: 2.5rem;} */
+
 }
 
 
@@ -191,7 +261,7 @@ ul{
     padding: 18px;
     border: 1px solid #EEE6DA;
     border-radius: 25px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.80);
 
     h6{
         height: fit-content;
@@ -199,11 +269,13 @@ ul{
     }
 }
 
+
 @property --progress{
     syntax: "<length-percentage>";
     inherits: false;
     initial-value: 0%;
 }
+
 
 .progress-bar{
 
@@ -212,7 +284,7 @@ ul{
 
     font-size: 2rem;
     width: var(--size);
-    aspect-ratio: 1 / 1;
+    height: var(--size);
 
     background: conic-gradient(#95d86b var(--progress,0), #2838151a 0%);
     border-radius: 50%;
@@ -225,7 +297,7 @@ ul{
 
     &::after{
         content: attr(aria-valuenow)"%";
-        background: #fefaef;
+        background-color: rgba(255, 255, 255, 0.85);
         border-radius: inherit;
         width: calc(100% - var(--bar-width));
         aspect-ratio: 1 / 1;
@@ -247,6 +319,20 @@ ul{
 }
 .carousel-control-next-icon{
     background-image: url("/static/icons/navigate_next_24dp_2C0404CC.svg");
+}
+
+
+footer{
+    margin: 0 auto;
+}
+
+
+@keyframes tilt-shaking {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
 }
 
 

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,17 +17,16 @@
   </head>
 
   <body>
+    <p class="d-flex justify-content-center m-4 lead">Dashboard Universitário - CS50</p>
+
     <div class="wrapper d-flex gap-3">
 
       <!-- Coluna 1 -->
       <div class="d-grid gap-3">
-
         <!-- Disciplina, proximos conteudos e proximas atividades -->
         <div class="main-area">
-
           <!-- Carrossel Disciplina -->
           <div id="carrossel-disciplina" class="carousel">
-            
             <!-- Conteudo -->
             <div class="carousel-inner">
               <!-- Botoes carrossel -->
@@ -34,7 +36,10 @@
                 data-bs-target="#carrossel-disciplina"
                 data-bs-slide="prev"
               >
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span class="visually-hidden">Previous</span>
               </button>
 
@@ -44,14 +49,18 @@
                 data-bs-target="#carrossel-disciplina"
                 data-bs-slide="next"
               >
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span class="visually-hidden">Next</span>
               </button>
 
               {% for disciplina in disciplinas %}
               <div class="carousel-item">
-
-                <h6 class="titulo-disciplina disciplina{{disciplina.id}}">{{disciplina.nome}}</h6>
+                <h6 class="titulo-disciplina disciplina{{disciplina.id}}">
+                  {{disciplina.nome}}
+                </h6>
 
                 <div class="conteudos">
                   <div>
@@ -79,23 +88,20 @@
                   <div>
                     <h6>Atividades</h6>
                     <ul>
-
                       {% for atividade in disciplina.atividades %}
                       <li>
                         <input
                           id="{{atividade.id}}"
                           type="checkbox"
-                          value="atividade.concluido"
+                          value="{{atividade.concluido}}"
                           onchange="atualizaTodo(this)"
                         />
-                        {{atividade.nome}} {{atividade.prazo}}
+                        <p>{{atividade.nome}} {{atividade.prazo}}</p>
                       </li>
                       {% endfor %}
-
                     </ul>
                   </div>
                 </div>
-
               </div>
               {% endfor %}
             </div>
@@ -113,10 +119,12 @@
                   value="{{conteudo.concluido}}"
                   onchange="atualizaTodo(this)"
                 />
-                <div class="linha-vertical disciplina{{conteudo.disciplina}}"></div>
+                <div
+                  class="linha-vertical disciplina{{conteudo.disciplina}}"
+                ></div>
                 <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
               </li>
-             {% endfor %}
+              {% endfor %}
             </ul>
           </div>
 
@@ -132,7 +140,9 @@
                   value="{{atividade.concluido}}"
                   onchange="atualizaTodo(this)"
                 />
-                <div class="linha-vertical disciplina{{atividade.disciplina}}"></div>
+                <div
+                  class="linha-vertical disciplina{{atividade.disciplina}}"
+                ></div>
                 <div class="lh-sm">
                   <p>{{atividade.nome}}</p>
                   <p class="text-muted small">Prazo: {{atividade.prazo}}</p>
@@ -141,7 +151,10 @@
               {% endfor %}
             </ul>
           </div>
+          <img class="estrela" width="100" height="100" src="/static/icons/Star 1.svg" >
         </div>
+
+        
         
         <!-- Horario -->
         <div class="horario">
@@ -214,24 +227,34 @@
           </table>
         </div>
       </div>
-
-      <!-- Coluna 2 -->
-      <div class="d-grid gap-3">
-          <!-- Calendario -->
-        <div class="calendario">TO DO</div>
       
+            <!-- Coluna 2 -->
+      <div class="d-grid gap-3">
+        <!-- Calendario -->
+        <div class="calendario">
+          <div id="calendar"></div>
+        </div>
+
+
         <!-- Progresso -->
         <div id="progresso">
           <h6>Progresso do mês</h6>
 
-          <div class="progress-bar" role="progressbar" aria-live="polite"></div>
-          <div class="info"></div>
+          <div class="d-grid gap-3">
+            <div class="progress-bar" role="progressbar" aria-live="polite"></div>
+            <div class="info"></div>
+          </div>
         </div>
-        
+
+
         <!-- Imagens -->
-        <div id="imagens" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div
+          id="imagens"
+          class="carousel slide carousel-fade"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner">
-              <img
+            <img
               width="308px"
               height="290px"
               src="https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg"
@@ -249,36 +272,41 @@
               src="https://i.pinimg.com/236x/11/64/07/11640755def7c2c40d8d5211c4f25913.jpg"
               class="carousel-item"
             />
-          </div> 
+          </div>
         </div>
-      </div>
       
+      </div>
 
     </div>
-    
-    <script src="/static/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js"></script>
+
+    <footer class="d-flex justify-content-center m-5 text-muted">
+      Feito por Vitória 🌱 - 2025
+    </footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="/static/script.js"></script>
+    <script src="/static/fullcalendar-6.1.15/dist/index.global.min.js"></script>
     <script>
       // Inicializa carrossel Disciplina
-      const carrosselDisciplina = document.querySelector("#carrossel-disciplina")
+      const carrosselDisciplina = document.querySelector(
+        "#carrossel-disciplina"
+      );
 
       const carousel = new bootstrap.Carousel(carrosselDisciplina, {
         interval: 2000,
-        touch: false
-      })
+        touch: false,
+      });
 
       // Inicia carrossel Imagens
-      const carrosselImagem = document.querySelector("#disciplinas")
+      const carrosselImagem = document.querySelector("#disciplinas");
 
       const carouselImagens = new bootstrap.Carousel(carrosselImagem, {
         interval: 2000,
-        touch: false
-      })
+        touch: false,
+      });
     </script>
   </body>
 </html>

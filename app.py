@@ -22,7 +22,7 @@ def dashboard():
 def atualizaStatus():
     data = request.json
     id = data["id"]
-    status = str(data["status"])
+    status = data["status"]
 
     database.atualizaStatus(id, status)
 

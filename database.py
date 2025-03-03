@@ -69,7 +69,7 @@ def proximos_conteudos():
     cursor.execute(
         '''
         SELECT id, nome, concluido, id_disciplina AS disciplina FROM todo 
-        WHERE categoria = 'CON' AND concluido = 'False' 
+        WHERE categoria = 'CON' AND concluido = 'false' 
         GROUP BY id_disciplina
         ''')
     
@@ -92,6 +92,7 @@ def proximas_atividades():
         '''
         SELECT id, nome, prazo, concluido, id_disciplina AS disciplina FROM todo 
         WHERE julianday(prazo) - julianday(?) <= 7
+        ORDER BY prazo
         ''', (hoje,))
     
     prox_atividades = cursor.fetchall()
@@ -114,7 +115,6 @@ def atualizaStatus(id, status):
     return
 
 
-# Para calendario
 def mostra_eventos():
     connect = sqlite3.connect("dashboard.db")
     connect.row_factory = dict_factory
@@ -154,7 +154,7 @@ def progresso():
         '''
         SELECT COUNT(*) AS concluidas FROM todo
         WHERE strftime('%m', prazo) = ?
-        AND concluido = 'True'
+        AND concluido = 'true'
         ''', (mesAtual,))
     
     atvConcluidasMes = cursor.fetchall()
