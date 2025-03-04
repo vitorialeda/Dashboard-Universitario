@@ -39,3 +39,7 @@ def eventos():
 def progresso():
     progresso = database.progresso()
     return progresso
+
+
+if __name__ == '__main__':
+    app.run()

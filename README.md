@@ -1,13 +1,70 @@
 # Dashboard-Universitario
 
-Projeto final do cs50 :D
+## Descrição
 
-# Sobre o projeto
+Este projeto é um dashboard universitário desenvolvido como projeto final do curso CS50. Ele centraliza todas as informações essenciais de um semestre em um único lugar, permitindo que você visualize tarefas, prazos, conteúdos de estudo, calendário, horário de aulas e imagens de apoio. O objetivo é promover a organização pessoal através de checklists e uma visualização clara do progresso acadêmico.
 
-# Para a Vitória do futuro
-Sei que como foi minha primeira vez implementando algo assim não posso esperar muita coisa. Espero que a Vitória do futuro possa enxergar melhorias e implementá-las. Até lá, fica de ideia:
+## Tecnologias Utilizadas
 
-- Implementar páginas especificas
-- Refatorar o código
+- Linguagens: Python , HTML ️, CSS , JavaScript
+- Frameworks: Flask , Bootstrap
+- Banco de Dados: SQLite
 
-Dashboard universitario usando python, flask, sqlite, html, css, javascript, bootstrap
+## Como executar
+
+1.  Clone o repositório:
+
+    ```bash
+    git clone https://github.com/vitorialeda/Dashboard-Universitario.git
+    ```
+    
+2.  Crie um ambiente virtual (opcional, mas recomendado):
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate # No Linux/macOS
+    venv\Scripts\activate # No Windows
+    ```
+    
+3.  Instale as dependências:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+4.  Execute o aplicativo:
+
+    ```bash
+    python app.py
+    ```
+    
+5.  Acesse o aplicativo no navegador:
+
+    Use o endereço `127.0.0.1:5000`
+
+## Funcionalidades Principais ✨
+
+- **Visão Unificada**: Acesse todas as informações relevantes de uma disciplina em um único local:
+    - Tarefas e materiais de estudo planejados. ✅
+    - Prazos de entrega de trabalhos.❗
+    - Conteúdo programado para estudo futuro. 🖊️
+    - Calendário integrado. ️🗓️
+    - Horário de aulas. ⏰
+    - Imagens de apoio. ❤️ 
+- **Organização Simplificada** : Utilize listas de verificação (checkboxes) para gerenciar tarefas e acompanhar o progresso. 📋
+- **Acompanhamento Visual do Progresso** : Visualize de forma clara e intuitiva o status das atividades pendentes e concluídas. 📈
+
+## Melhorias Futuras
+
+- **Implementação de páginas específicas** : Criar páginas dedicadas para cada disciplina ou tipo de informação, melhorando a organização e a usabilidade.
+- **Funcionalidade de adicionar e remover tarefas**: Permitir que o usuário adicione e remova tarefas dinamicamente, personalizando o dashboard de acordo com suas necessidades.
+- **Refatoração do código**: Realizar uma revisão e otimização do código, buscando melhorar a performance, a legibilidade e a manutenibilidade.
+- **Implementação de login e registro de usuários** : Para que cada aluno tenha seu próprio painel.
+- **Melhorias na interface**: Deixando ela mais amigável e mais bonita.
+
+
+Este projeto representa um marco importante no meu aprendizado. Sei que há espaço para melhorias e espero que, no futuro, eu possa aprimorá-lo com novas funcionalidades e otimizações
+
+## Contribuição
+
+Sinta-se à vontade para contribuir com este projeto! Se você encontrar algum problema ou tiver alguma sugestão de melhoria, abra uma issue ou envie um pull request.
