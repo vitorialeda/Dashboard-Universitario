@@ -1,5 +1,7 @@
 # Dashboard-Universitario
 
+![Exemplo App](https://cdn.discordapp.com/attachments/981388953007570946/1346539371695968298/Captura_de_imagem_20250304_144504.png?ex=67c88e03&is=67c73c83&hm=b24e8c53b3f8eaf2cbd5e969edce6ae132c46f357e2cb5a092d643fb92b3d06e&)
+
 ## Descrição
 
 Este projeto é um dashboard universitário desenvolvido como projeto final do curso CS50. Ele centraliza todas as informações essenciais de um semestre em um único lugar, permitindo que você visualize tarefas, prazos, conteúdos de estudo, calendário, horário de aulas e imagens de apoio. O objetivo é promover a organização pessoal através de checklists e uma visualização clara do progresso acadêmico.
