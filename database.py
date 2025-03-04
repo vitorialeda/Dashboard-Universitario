@@ -91,7 +91,7 @@ def proximas_atividades():
     cursor.execute(
         '''
         SELECT id, nome, prazo, concluido, id_disciplina AS disciplina FROM todo 
-        WHERE julianday(prazo) - julianday(?) <= 7
+        WHERE julianday(prazo) - julianday(?) BETWEEN 0 AND 7
         ORDER BY prazo
         ''', (hoje,))
     
