@@ -96,7 +96,10 @@
                           value="{{atividade.concluido}}"
                           onchange="atualizaTodo(this)"
                         />
-                        <p>{{atividade.nome}} {{atividade.prazo}}</p>
+                        <span>
+                          <p>{{atividade.nome}}</p>
+                          <p class="text-muted small">Prazo: {{atividade.prazo}}</p>
+                        </span>
                       </li>
                       {% endfor %}
                     </ul>
@@ -122,7 +125,7 @@
                 <div
                   class="linha-vertical disciplina{{conteudo.disciplina}}"
                 ></div>
-                <p class="lh-sm">{{conteudo.nome}} {{conteudo.disciplina}}</p>
+                <p class="lh-sm">{{conteudo.nome}}</p>
               </li>
               {% endfor %}
             </ul>
